@@ -1,9 +1,17 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "module": "commonjs",
     "declaration": false,
-    "outDir": "../../dist/apps/api-gateway"
+    "allowSyntheticDefaultImports": true,
+    "outDir": "../../dist/apps/api-gateway",
+    "baseUrl": "./src",
+    "paths": {
+      "~infra/*": [
+        "infra/*"
+      ]
+    }
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "test", "**/*spec.ts"]
+  "exclude": ["node_modules", "dist", "test", "**/*spec.ts"],
 }
