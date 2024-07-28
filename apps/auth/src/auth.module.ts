@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 
 import { UseCases } from '~application/enums/usecases.enum';
 import { RegisterUseCases } from '~application/useCases/register.usecases';
-import { GetUserByEmailUseCases } from '~application/useCases/getUserByEmail.usecases';
+import { ExistsUserUseCases } from '~application/useCases/exists-user.usecases';
 
 import { AuthController } from '~infrastructure/controllers/auth.controller';
 import { UserRepository } from '~infrastructure/repositories/user.repository';
@@ -19,9 +19,9 @@ import { RepositoriesModule } from '~infrastructure/repositories/repositories.mo
       inject: [UserRepository],
     },
     {
-      provide: UseCases.GET_USER_BY_EMAIL,
+      provide: UseCases.EXISTS_USER,
       useFactory: (userRepository: UserRepository) =>
-        new GetUserByEmailUseCases(userRepository),
+        new ExistsUserUseCases(userRepository),
       inject: [UserRepository],
     },
   ],
