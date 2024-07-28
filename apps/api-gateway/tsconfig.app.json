@@ -1,7 +1,6 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "module": "commonjs",
     "declaration": false,
     "allowSyntheticDefaultImports": true,
     "outDir": "../../dist/apps/api-gateway",

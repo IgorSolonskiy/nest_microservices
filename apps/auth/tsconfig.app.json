@@ -2,8 +2,31 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "declaration": false,
-    "outDir": "../../dist/apps/auth"
+    "allowSyntheticDefaultImports": true,
+    "outDir": "../../dist/apps/auth",
+    "baseUrl": "./src",
+    "paths": {
+      "~libs/*": [
+        "../../../libs/*"
+      ],
+      "~infrastructure/*": [
+        "infrastructure/*"
+      ],
+      "~application/*": [
+        "application/*"
+      ],
+      "~domain/*": [
+        "domain/*"
+      ]
+    }
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "test", "**/*spec.ts"]
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "test",
+    "**/*spec.ts"
+  ]
 }
