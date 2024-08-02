@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 
 import { UseCases } from '~application/enums/usecases.enum';
 import { RegisterUseCases } from '~application/useCases/register.usecases';
-import { ExistsUserUseCases } from '~application/useCases/exists-user.usecases';
 
 import { AuthController } from '~infrastructure/controllers/auth.controller';
 import { UserRepository } from '~infrastructure/repositories/user.repository';
@@ -16,12 +15,6 @@ import { RepositoriesModule } from '~infrastructure/repositories/repositories.mo
       provide: UseCases.REGISTER,
       useFactory: (userRepository: UserRepository) =>
         new RegisterUseCases(userRepository),
-      inject: [UserRepository],
-    },
-    {
-      provide: UseCases.EXISTS_USER,
-      useFactory: (userRepository: UserRepository) =>
-        new ExistsUserUseCases(userRepository),
       inject: [UserRepository],
     },
   ],
