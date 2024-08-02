@@ -1,10 +1,15 @@
-import { Controller, Inject } from '@nestjs/common';
+import {
+  ClassSerializerInterceptor,
+  Controller,
+  Inject,
+  UseInterceptors,
+} from '@nestjs/common';
 import { MessagePattern, RpcException } from '@nestjs/microservices';
-
-import { UserEntity } from '~domain/entities/user.entity';
 
 import { UseCases } from '~application/enums/usecases.enum';
 import { RegisterUseCases } from '~application/useCases/register.usecases';
+
+import { UserModel } from '~infrastructure/models/user.model';
 
 @Controller()
 export class AuthController {
@@ -13,10 +18,11 @@ export class AuthController {
     private readonly registerUseCase: RegisterUseCases,
   ) {}
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @MessagePattern({ cmd: 'register' })
-  async register(data: UserEntity): Promise<UserEntity> {
+  async register(data: Omit<UserModel, 'id'>): Promise<UserModel> {
     try {
-      return await this.registerUseCase.execute(data);
+      return new UserModel(await this.registerUseCase.execute(data));
     } catch (error) {
       throw new RpcException(error);
     }

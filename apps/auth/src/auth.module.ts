@@ -6,16 +6,18 @@ import { RegisterUseCases } from '~application/useCases/register.usecases';
 import { AuthController } from '~infrastructure/controllers/auth.controller';
 import { UserRepository } from '~infrastructure/repositories/user.repository';
 import { RepositoriesModule } from '~infrastructure/repositories/repositories.module';
+import { ServicesModule } from '~infrastructure/services/services.module';
+import { HashService } from '~infrastructure/services/hash/hash.service';
 
 @Module({
-  imports: [RepositoriesModule],
+  imports: [RepositoriesModule, ServicesModule],
   controllers: [AuthController],
   providers: [
     {
       provide: UseCases.REGISTER,
-      useFactory: (userRepository: UserRepository) =>
-        new RegisterUseCases(userRepository),
-      inject: [UserRepository],
+      inject: [UserRepository, HashService],
+      useFactory: (userRepository: UserRepository, hashService: HashService) =>
+        new RegisterUseCases(userRepository, hashService),
     },
   ],
 })
